@@ -15,17 +15,8 @@ node ('centos-agemt'){
             app.push("latest")
         			}
          }
-    stage('SECURITY-IMAGE-SCANNER'){
-        build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
-    }
-    
     stage('Pull-image-server') {
          sh "docker-compose down"
          sh "docker-compose up -d"	
       }
-    
-    stage('DAST'){
-        build 'SECURITY-DAST-OWASP_ZAP'
-        }
- 
 }
