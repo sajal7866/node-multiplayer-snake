@@ -10,13 +10,11 @@ node ('master'){
 
     
     stage('Build-and-Tag') {
-        sh 'echo Build-anTag'
     /* This builds the actual image; synonymous to
          * docker build on the command line */
         app = docker.build("sajaldocker786/snake")
     }
     stage('Post-to-dockerhub') {
-    sh 'echo Post-to-DockerHub'
      docker.withRegistry('https://registry.hub.docker.com', 'training_creds') {
             app.push("latest")
         			}
@@ -24,17 +22,13 @@ node ('master'){
     stage('SECURITY-IMAGE-SCANNER'){
         build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
     }
-  
     
     stage('Pull-image-server') {
-    sh 'echo Pull-Image-Server'
          sh "docker-compose down"
          sh "docker-compose up -d"	
       }
     
-    stage('DAST')
-    sh 'echo DAST'
-        {
+    stage('DAST'){
         build 'SECURITY-DAST-OWASP_ZAP'
         }
  
