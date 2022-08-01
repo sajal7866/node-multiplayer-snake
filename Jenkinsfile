@@ -1,4 +1,4 @@
-node ('master'){  
+node ('centos-agemt'){  
     def app
     stage('Cloning Git') {
         /* Let's make sure we have the repository cloned to our workspace */
